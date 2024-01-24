@@ -40,6 +40,7 @@ parseTXTRecord = (data) => {
     const [attribute, value] = pair.split('=');
     result[attribute] = value;
   });
+
   return result;
 }
 
