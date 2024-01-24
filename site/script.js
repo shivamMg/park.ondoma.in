@@ -44,8 +44,7 @@ parseTXTRecord = (data) => {
 }
 
 main = () => {
-  // const hostname = window.location.hostname;
-  const hostname = "shivammamgain.com";
+  const hostname = window.location.hostname;
   getTXTRecordGoogle(hostname)
     .then((txtRecord) => parseTXTRecord(txtRecord))
     .then((attributeValues) => {
