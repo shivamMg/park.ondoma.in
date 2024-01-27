@@ -10,18 +10,46 @@ const MarkupHtml = {
 	<div id="description"></div>
 	<div id="art"></div>
 	<div id="links">
-		<ul>
-			<li id="github_link"></li>
-		</ul>
+		<div><a class="link" target="_blank" id="link_instagram"></a></div>
+		<div><a class="link" target="_blank" id="link_facebook"></a></div>
+		<div><a class="link" target="_blank" id="link_twitter"></a></div>
+		<div><a class="link" target="_blank" id="link_github"></a></div>
+		<div><a class="link" target="_blank" id="link_linkedin"></a></div>
 	</div>
 </div>`,
-}
+};
+// m=bio;s=shivammg/txt-theme-basic;t=Shivam Mamgain;d=Software Developer - Nerd - Computer Science Engineer;i=dobby_draws_;f=shivammamgaindotcom;x=shivammamgain;g=shivamMg;l=shivammamgain
 const MarkupHtmlIds = {
 	bio: {
-		t: "title",
-		d: "description",
-		g: "github_link",
-	}
+		t: 'title',
+		d: 'description',
+		i: 'link_instagram',
+		f: 'link_facebook',
+		x: 'link_twitter',
+		g: 'link_github',
+		l: 'link_linkedin',
+	},
+};
+
+const MarkupFuncBio = (markup, attributeValues) => {
+	document.getElementById(BodyContainerHtmlId).innerHTML = MarkupHtml[markup];
+	Object.entries(MarkupHtmlIds[markup]).forEach(([attribute, htmlId]) => {
+		const value = attributeValues[attribute];
+		if (value !== undefined) {
+			if (!htmlId.startsWith('link_')) {
+				document.getElementById(htmlId).textContent = value;
+			} else {
+				const linkName = htmlId.substring('link_'.length);
+				const linkElem = document.getElementById(htmlId);
+				linkElem.href = `https://${linkName}.com/${value}`;
+				linkElem.innerHTML = `<img class="link-logo" src="https://unpkg.com/simple-icons@11.2.0/icons/${linkName}.svg"/><span class="link-text">${value}</span>`
+			}
+		}
+	});
+}
+
+const MarkupFuncs = {
+	bio: MarkupFuncBio,
 }
 
 const getTxtRecordGoogle = (name) => {
@@ -67,7 +95,8 @@ const setStylesheet = (style) => {
 	}
 	const githubUserName = style.substring(0, githubUserNameIndex);
 	const githubRepoAndPath = style.substring(githubUserNameIndex);
-	const stylesheetUrl = `https://${githubUserName}.github.io/${githubRepoAndPath}/style.css`
+	// const stylesheetUrl = `https://${githubUserName}.github.io/${githubRepoAndPath}/style.css`
+	const stylesheetUrl = 'http://localhost:8000/site/style.css';
 	const link = document.createElement('link');
 	link.rel = 'stylesheet';
 	link.type = 'text/css';
@@ -77,20 +106,11 @@ const setStylesheet = (style) => {
 
 const setMarkupHtml = (attributeValues) => {
 	const markup = attributeValues[AttributeMarkup];
-	const markupHtml = MarkupHtml[markup];
-	if (markupHtml === undefined) {
-		throw new Error(`Invalid value of markup attribute '${AttributeMarkup}': ${markup}. Valid values: ${Object.keys(MarkupHtml)}`);
+	const markupFunc = MarkupFuncs[markup];
+	if (markupFunc === undefined) {
+		throw new Error(`Invalid value of markup attribute '${AttributeMarkup}': ${markup}. Valid values: ${Object.keys(MarkupFuncs)}`);
 	}
-	document.getElementById(BodyContainerHtmlId).innerHTML = markupHtml;
-
-	Object.entries(MarkupHtmlIds[markup]).forEach(([attribute, htmlId]) => {
-		if (attributeValues.hasOwnProperty(attribute)) {
-			const elem = document.getElementById(htmlId)
-			if (elem) {
-				elem.textContent = attributeValues[attribute];
-			}
-		}
-	});
+	markupFunc(markup, attributeValues);
 }
 
 const main = () => {
