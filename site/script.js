@@ -6,19 +6,25 @@ const BodyContainerHtmlId = "body_container";
 const MarkupHtml = {
 	bio: `
 <div id="markup_container">
-	<div id="title"></div>
-	<div id="description"></div>
-	<div id="art"></div>
-	<div id="links">
-		<div><a class="link" target="_blank" id="link_instagram"></a></div>
-		<div><a class="link" target="_blank" id="link_facebook"></a></div>
-		<div><a class="link" target="_blank" id="link_twitter"></a></div>
-		<div><a class="link" target="_blank" id="link_github"></a></div>
-		<div><a class="link" target="_blank" id="link_linkedin"></a></div>
+	<div id="markup">
+	  <div id="picture_container">
+			<img id="picture" src="https://github.com/shivamMg.png">
+		</div>
+		<div id="title"></div>
+		<div id="description"></div>
+		<div id="links">
+			<ul>
+				<li><a class="link" target="_blank" id="link_instagram"></a></li>
+				<li><a class="link" target="_blank" id="link_facebook"></a></li>
+				<li><a class="link" target="_blank" id="link_twitter"></a></li>
+				<li><a class="link" target="_blank" id="link_github"></a></li>
+				<li><a class="link" target="_blank" id="link_linkedin"></a></li>
+			</ul>
+		</div>
 	</div>
 </div>`,
 };
-// m=bio;s=shivammg/txt-theme-basic;t=Shivam Mamgain;d=Software Developer - Nerd - Computer Science Engineer;i=dobby_draws_;f=shivammamgaindotcom;x=shivammamgain;g=shivamMg;l=shivammamgain
+// m=bio;s=shivammg/txt-theme-basic;t=Shivam Mamgain;d=Software Developer ~ Computer Science Engineer ~ Nerd;i=dobby_draws_;x=shivammamgain;g=shivamMg;l=shivammamgain
 const MarkupHtmlIds = {
 	bio: {
 		t: 'title',
@@ -42,7 +48,7 @@ const MarkupFuncBio = (markup, attributeValues) => {
 				const linkName = htmlId.substring('link_'.length);
 				const linkElem = document.getElementById(htmlId);
 				linkElem.href = `https://${linkName}.com/${value}`;
-				linkElem.innerHTML = `<img class="link-logo" src="https://unpkg.com/simple-icons@11.2.0/icons/${linkName}.svg"/><span class="link-text">${value}</span>`
+				linkElem.innerHTML = `<img class="link-logo" src="https://unpkg.com/simple-icons@11.2.0/icons/${linkName}.svg"><span class="link-text">${value}</span>`
 			}
 		}
 	});
