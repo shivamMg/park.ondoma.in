@@ -1,7 +1,7 @@
 const TxtRecordHost = "_parking-on-domain";
 const AttributeMarkup = "m";
 const AttributeStyle = "s";
-const BodyContainerHtmlId = "body_container";
+const BodyInnerHtmlId = "body_inner";
 
 const MarkupHtml = {
 	bio: `
@@ -14,11 +14,11 @@ const MarkupHtml = {
 		<div id="description"></div>
 		<div id="links">
 			<ul>
-				<li><a class="link" target="_blank" id="link_instagram"></a></li>
-				<li><a class="link" target="_blank" id="link_facebook"></a></li>
-				<li><a class="link" target="_blank" id="link_twitter"></a></li>
-				<li><a class="link" target="_blank" id="link_github"></a></li>
-				<li><a class="link" target="_blank" id="link_linkedin"></a></li>
+				<li><a class="link hidden" target="_blank" id="link_instagram"></a></li>
+				<li><a class="link hidden" target="_blank" id="link_facebook"></a></li>
+				<li><a class="link hidden" target="_blank" id="link_twitter"></a></li>
+				<li><a class="link hidden" target="_blank" id="link_github"></a></li>
+				<li><a class="link hidden" target="_blank" id="link_linkedin"></a></li>
 			</ul>
 		</div>
 	</div>
@@ -38,7 +38,7 @@ const MarkupHtmlIds = {
 };
 
 const MarkupFuncBio = (markup, attributeValues) => {
-	document.getElementById(BodyContainerHtmlId).innerHTML = MarkupHtml[markup];
+	document.getElementById(BodyInnerHtmlId).innerHTML = MarkupHtml[markup];
 	Object.entries(MarkupHtmlIds[markup]).forEach(([attribute, htmlId]) => {
 		const value = attributeValues[attribute];
 		if (value !== undefined) {
@@ -47,7 +47,12 @@ const MarkupFuncBio = (markup, attributeValues) => {
 			} else {
 				const linkName = htmlId.substring('link_'.length);
 				const linkElem = document.getElementById(htmlId);
-				linkElem.href = `https://${linkName}.com/${value}`;
+				linkElem.className = "link";
+				if (linkName == "linkedin") {
+					linkElem.href = `https://${linkName}.com/in/${value}`;
+				} else {
+					linkElem.href = `https://${linkName}.com/${value}`;
+				}
 				linkElem.innerHTML = `<img class="link-logo" src="https://unpkg.com/simple-icons@11.2.0/icons/${linkName}.svg"><span class="link-text">${value}</span>`
 			}
 		}
