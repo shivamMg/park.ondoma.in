@@ -24,7 +24,7 @@ const MarkupHtml = {
 	</div>
 </div>`,
 };
-// m=bio;s=shivammg/txt-theme-basic;t=Shivam Mamgain;d=Software Developer ~ Computer Science Engineer ~ Nerd;i=dobby_draws_;x=shivammamgain;g=shivamMg;l=shivammamgain
+// m=bio;s=shivammg/s/bio/basic;t=Shivam Mamgain;d=Software Developer ~ Computer Science Engineer ~ Nerd;i=dobby_draws_;x=shivammamgain;g=shivamMg;l=shivammamgain
 const MarkupHtmlIds = {
 	bio: {
 		t: 'title',
@@ -110,8 +110,8 @@ const setStylesheet = (style) => {
 	}
 	const githubUserName = style.substring(0, githubUserNameIndex);
 	const githubRepoAndPath = style.substring(githubUserNameIndex);
-	// const stylesheetUrl = `https://${githubUserName}.github.io/${githubRepoAndPath}/style.css`
-	const stylesheetUrl = 'http://localhost:8000/site/style.css';
+	const stylesheetUrl = `https://${githubUserName}.github.io/${githubRepoAndPath}/style.css`
+	// const stylesheetUrl = 'http://localhost:8000/site/style.css';
 	const link = document.createElement('link');
 	link.rel = 'stylesheet';
 	link.type = 'text/css';
