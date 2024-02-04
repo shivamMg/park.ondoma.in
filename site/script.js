@@ -8,7 +8,7 @@ const MarkupHtml = {
 <div id="markup_container">
 	<div id="markup">
 	  <div id="picture_container">
-			<img id="picture" src="https://github.com/shivamMg.png">
+			<img id="picture" src="">
 		</div>
 		<div id="title"></div>
 		<div id="description"></div>
@@ -53,7 +53,11 @@ const MarkupFuncBio = (markup, attributeValues) => {
 				} else {
 					linkElem.href = `https://${linkName}.com/${value}`;
 				}
-				linkElem.innerHTML = `<img class="link-logo" src="https://unpkg.com/simple-icons@11.2.0/icons/${linkName}.svg"><span class="link-text">${value}</span>`
+				linkElem.innerHTML = `<img class="link-logo" src="https://cdn.simpleicons.org/${linkName}/272727"><span class="link-text">${value}</span>`
+				if (linkName == "github") {
+					const picElem = document.getElementById('picture');
+					picElem.src = `https://github.com/${value}.png`
+				}
 			}
 		}
 	});
@@ -125,8 +129,8 @@ const setMarkupHtml = (attributeValues) => {
 }
 
 const main = () => {
-	// const hostname = window.location.hostname;
-	const hostname = "tmp.shivammamgain.com";
+	const hostname = window.location.hostname;
+	// const hostname = "tmp.shivammamgain.com";
 	getTxtRecordGoogle(hostname)
 		.then((txtRecord) => parseTxtRecord(txtRecord))
 		.then((attributeValues) => {
